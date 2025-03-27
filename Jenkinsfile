@@ -13,15 +13,18 @@ pipeline {
                 ])
             }
         }
-        // stage('Build') {
-        //     steps {
-        //         // TODO
-        //     }
-        // }
-        // stage('Test') {
-        //     steps {
-        //         // TODO
-        //     }
-        // }
+         // installer les librairies
+         stage('Installs') {
+            steps {
+                   sh 'npm install --force'
+                   sh 'npm install mocha --save-dev'
+            }
+         }
+        // Test unitaires en utilisent la librairie mocha
+        stage('Test') {
+            steps {
+                sh 'npm test'
+             }
+        }
     }
 }
