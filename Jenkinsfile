@@ -26,5 +26,28 @@ pipeline {
                 sh 'npm test'
              }
         }
+        
+        // Creation image docker 
+        stage('build_docker'){
+            steps{
+                sh 'docker build -t jenkins-node .'
+            }
+        }
+        
+        // push docker image 
+        
+        stage('Push Docker Image') {
+            steps {
+                script {
+
+                    withCredentials([usernamePassword(credentialsId: 'docker_credentiel', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        sh 'echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin'
+                        sh "docker tag jenkins-node lealouise2001avie/eval_9avril:latest "  // Tag l’image
+                        sh "docker push lealouise2001avie/eval_9avril:latest "  // Push l’image sur Docker Hub
+                    }
+                }
+            }
+        }
+
     }
 }
