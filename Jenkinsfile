@@ -7,7 +7,7 @@ pipeline {
                     $class: 'GitSCM',
                     branches: [[name: '*/main']],
                     userRemoteConfigs: [[
-                        url: 'https://github.com/Lele2001avie/Docker_jenkins.git',
+                        url: 'https://github.com/Lele2001avie/Backend-API-Express',
                         credentialsId: 'github-credentials'
                     ]]
                 ])
